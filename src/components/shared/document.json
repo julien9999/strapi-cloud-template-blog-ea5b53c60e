@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_shared_documents",
+  "info": {
+    "displayName": "Document",
+    "icon": "file",
+    "description": "A document with title and PDF"
+  },
+  "options": {},
+  "attributes": {
+    "documentId": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "smallTitle": {
+      "type": "string"
+    },
+    "pdf": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["files"]
+    }
+  }
+}
