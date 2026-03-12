@@ -1,6 +1,9 @@
 'use strict';
 
-async function seedGattegnoData() {
+let _strapi;
+
+async function seedGattegnoData(strapiInstance) {
+  _strapi = strapiInstance;
   const shouldImportSeedData = await isFirstRun();
 
   if (shouldImportSeedData) {
@@ -16,8 +19,8 @@ async function seedGattegnoData() {
 }
 
 async function isFirstRun() {
-  const pluginStore = strapi.store({
-    environment: strapi.config.environment,
+  const pluginStore = _strapi.store({
+    environment: _strapi.config.environment,
     type: 'type',
     name: 'setup',
   });
@@ -27,7 +30,7 @@ async function isFirstRun() {
 }
 
 async function setPublicPermissions(newPermissions) {
-  const publicRole = await strapi.query('plugin::users-permissions.role').findOne({
+  const publicRole = await _strapi.query('plugin::users-permissions.role').findOne({
     where: { type: 'public' },
   });
 
@@ -35,7 +38,7 @@ async function setPublicPermissions(newPermissions) {
   Object.keys(newPermissions).map((controller) => {
     const actions = newPermissions[controller];
     const permissionsToCreate = actions.map((action) => {
-      return strapi.query('plugin::users-permissions.permission').create({
+      return _strapi.query('plugin::users-permissions.permission').create({
         data: {
           action: `api::${controller}.${controller}.${action}`,
           role: publicRole.id,
@@ -49,7 +52,7 @@ async function setPublicPermissions(newPermissions) {
 
 async function createEntry({ model, entry }) {
   try {
-    await strapi.documents(`api::${model}.${model}`).create({
+    await _strapi.documents(`api::${model}.${model}`).create({
       data: entry,
     });
   } catch (error) {
@@ -193,6 +196,6 @@ async function importSeedData() {
   await importCategories();
 }
 
-module.exports = async () => {
-  await seedGattegnoData();
+module.exports = async (strapi) => {
+  await seedGattegnoData(strapi);
 };
