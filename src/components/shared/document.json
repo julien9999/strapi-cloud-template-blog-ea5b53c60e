@@ -7,7 +7,7 @@
   },
   "options": {},
   "attributes": {
-    "documentId": {
+    "slug": {
       "type": "string",
       "required": true
     },
