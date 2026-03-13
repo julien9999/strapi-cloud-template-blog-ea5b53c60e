@@ -21,8 +21,11 @@
       "type": "string",
       "required": true
     },
-    "image": {
-      "type": "string"
+    "headerImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
     },
     "href": {
       "type": "string"

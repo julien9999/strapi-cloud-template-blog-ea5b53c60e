@@ -23,6 +23,12 @@
       "multiple": false,
       "required": false,
       "allowedTypes": ["files"]
+    },
+    "cardImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
     }
   }
 }
